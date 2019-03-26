@@ -156,7 +156,7 @@ public class TwinsBufferPool<E> implements BufferPoolWithStorage<E> {
             persistStorage.store(dataList);
             temporaryStorage.clear();
         }
-        log.info("恢复了{}条数据", c);
+        log.info("{} data has recovered.", c);
         return c;
     }
 
@@ -173,7 +173,7 @@ public class TwinsBufferPool<E> implements BufferPoolWithStorage<E> {
             scheduledExecutorService.scheduleAtFixedRate(() -> {
                 int c = count.incrementAndGet();
                 if (c >= bufferTimeInSeconds) {
-                    log.warn("缓冲时间达到上限，当前有{}条缓冲数据，自动flush。", currentBuffer.length());
+                    log.warn("Buffer time exceed，flush current buffer.");
                     flush(currentBuffer);
                 }
             }, 0, 1, TimeUnit.SECONDS);
@@ -195,7 +195,7 @@ public class TwinsBufferPool<E> implements BufferPoolWithStorage<E> {
             mainLock.lock();
             try {
                 if (currentBuffer.reachThreshold()) {
-                    log.info("当前Buffer{}已有{}条数据，达到阈值，准备切换Buffer。", currentBuffer.getBufferName(), currentBuffer.length());
+                    log.debug("Current buffer length is {}，has already reach to the threshold，", currentBuffer.length(), currentBuffer.getBufferName());
                     swap();
                     flush(standbyBuffer);
                 }
@@ -241,6 +241,7 @@ public class TwinsBufferPool<E> implements BufferPoolWithStorage<E> {
         } finally {
             mainLock.unlock();
         }
+        log.warn("Buffer pool has shutdown.");
     }
 
     /**
@@ -267,6 +268,7 @@ public class TwinsBufferPool<E> implements BufferPoolWithStorage<E> {
             if (!next.isEmpty()) {
                 notEmptyBuffers.add(next);
             }
+            log.warn("Buffer pool has shutdown.");
             return notEmptyBuffers;
         } finally {
             mainLock.unlock();
@@ -303,7 +305,7 @@ public class TwinsBufferPool<E> implements BufferPoolWithStorage<E> {
     private void swap() {
         this.standbyBuffer = this.currentBuffer;
         this.currentBuffer = queue.next();
-        log.info("切换完毕，当前工作Buffer是{}，初始数据量是{}条", currentBuffer.getBufferName(), currentBuffer.length());
+        log.debug("Buffer swapping complete! Current buffer is {}", currentBuffer.getBufferName());
     }
 
     /**
@@ -314,12 +316,14 @@ public class TwinsBufferPool<E> implements BufferPoolWithStorage<E> {
         List<E> dataList = new ArrayList<>(buffer.getDataList());
         if (!dataList.isEmpty()) {
             persistStorage.store(dataList);
+            if (enableTemporaryStorage && temporaryStorage != null) {
+                temporaryStorage.clear();
+            }
             buffer.clear();
-            temporaryStorage.clear();
         }
         //重置计数器
         count.set(0);
-        log.info("当前工作Buffer数据落盘，共计{}条数据。", dataList.size());
+        log.debug("Flush buffer data. Total: {}", dataList.size());
     }
 
     /**

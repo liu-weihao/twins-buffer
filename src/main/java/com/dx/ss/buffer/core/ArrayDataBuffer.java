@@ -49,15 +49,15 @@ public class ArrayDataBuffer<E> implements DataBuffer<E> {
     @Override
     public E put(E entity) {
         if (isFull()) {
-            log.warn(this.getBufferName() + "缓冲区已满，数据已丢弃");
+            log.warn(this.getBufferName() + " is full, ignore it!");
             return null;
         }
         if (!allowDuplicate && exists(entity)) {
-            log.warn("检测到重复数据，自动丢弃");
+            log.debug("Detected duplicated data, ignore it!");
             return null;
         }
         if (reachThreshold()) {
-            log.warn(this.getBufferName() + "已经达到阈值");
+            log.warn(this.getBufferName() + "has reach to the threshold.");
         }
         dataList.add(entity);
         return entity;
@@ -71,15 +71,15 @@ public class ArrayDataBuffer<E> implements DataBuffer<E> {
     @Override
     public void putAll(Collection<? extends E> c) {
         if (isFull()) {
-            log.warn(this.getBufferName() + "缓冲区已满，数据已丢弃");
+            log.warn(this.getBufferName() + " is full, ignore it!");
             return;
         }
         if (!allowDuplicate && dataList.containsAll(c)) {
-            log.warn("检测到重复数据，自动丢弃");
+            log.debug("Detected duplicated data, ignore it!");
             return;
         }
         if (reachThreshold()) {
-            log.warn(this.getBufferName() + "已经达到阈值");
+            log.warn(this.getBufferName() + "has reach to the threshold.");
         }
         dataList.addAll(c);
     }

@@ -23,7 +23,7 @@ public class MongoPersistStorage<E> implements PersistStorage<E> {
             mongoTemplate.insert(e);
             return e;
         } catch (Exception ex) {
-            log.error("插入Document出现异常，{}", ex);
+            log.error("Exception occurred when persist data: {}", ex);
         }
         return null;
     }
@@ -37,7 +37,7 @@ public class MongoPersistStorage<E> implements PersistStorage<E> {
             mongoTemplate.insertAll(list);
             return list.size();
         } catch (Exception ex) {
-            log.error("批量插入Document出现异常，{}", ex);
+            log.error("Exception occurred when persist data: {}", ex);
         }
         return 0;
     }
