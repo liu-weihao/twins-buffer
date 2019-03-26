@@ -126,7 +126,7 @@ public class TwinsBufferPool<E> implements BufferPoolWithStorage<E> {
      */
     @Override
     public void setTemporaryStorage(TemporaryStorage<E> storage) {
-        if (storage == null) throw new NullPointerException("TemporaryStorage is not allowed to be NULL");
+        if (storage == null) throw new NullPointerException("TemporaryStorage is not allowed to be NULL.");
         this.temporaryStorage = storage;
     }
 
@@ -170,7 +170,7 @@ public class TwinsBufferPool<E> implements BufferPoolWithStorage<E> {
             scheduledExecutorService.scheduleAtFixedRate(() -> {
                 int c = count.incrementAndGet();
                 if (c >= bufferTimeInSeconds) {
-                    log.debug("Buffer time exceed，flush current buffer.");
+                    log.debug("Buffer time exceed, flush current buffer.");
                     flush(currentBuffer);
                 }
             }, 0, 1, TimeUnit.SECONDS);
@@ -192,7 +192,7 @@ public class TwinsBufferPool<E> implements BufferPoolWithStorage<E> {
             mainLock.lock();
             try {
                 if (currentBuffer.reachThreshold()) {
-                    log.debug("Current buffer length is {}，has already reach to the threshold，", currentBuffer.length(), currentBuffer.getBufferName());
+                    log.debug("{} length is {}, has already reach to the threshold.", currentBuffer.getBufferName(), currentBuffer.length());
                     swap();
                     flush(standbyBuffer);
                 }
@@ -320,7 +320,7 @@ public class TwinsBufferPool<E> implements BufferPoolWithStorage<E> {
         }
         //重置计数器
         count.set(0);
-        log.debug("Flush buffer data. Total: {}", dataList.size());
+        log.debug("Flush buffer data, Total: {}", dataList.size());
     }
 
     /**
