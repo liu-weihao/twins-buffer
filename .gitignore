@@ -30,10 +30,10 @@ nbdist/
 .mvn
 mvnw*
 target/
+application.yml
+application.properties
 
 ## log ##
 logs/**
 log/**
 **/log/**
-LOG_PATH_IS_UNDEFINED
-/log/
