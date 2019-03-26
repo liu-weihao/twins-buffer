@@ -6,6 +6,10 @@ spring:
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
     time-zone: GMT+8
+logging:
+  level:
+    com:
+      dx: debug
 buffer:
   allow-duplicate: false
   capacity: 1000
