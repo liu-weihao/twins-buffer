@@ -17,7 +17,7 @@ public class ApplicationShutdownEventListener implements ApplicationListener<Con
     @Override
     public void onApplicationEvent(ContextClosedEvent contextClosedEvent) {
         ApplicationContext context = contextClosedEvent.getApplicationContext();
-        log.warn("服务关闭，及时保存数据。");
+        log.warn("Flush data befor Application context closing.");
         BufferPool bufferPool = context.getBean(BufferPool.class);
         bufferPool.shutdown(true);
     }

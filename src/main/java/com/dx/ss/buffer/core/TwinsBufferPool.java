@@ -170,7 +170,7 @@ public class TwinsBufferPool<E> implements BufferPoolWithStorage<E> {
             scheduledExecutorService.scheduleAtFixedRate(() -> {
                 int c = count.incrementAndGet();
                 if (c >= bufferTimeInSeconds) {
-                    log.warn("Buffer time exceed，flush current buffer.");
+                    log.debug("Buffer time exceed，flush current buffer.");
                     flush(currentBuffer);
                 }
             }, 0, 1, TimeUnit.SECONDS);
