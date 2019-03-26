@@ -7,18 +7,13 @@ spring:
     date-format: yyyy-MM-dd HH:mm:ss
     time-zone: GMT+8
   redis:
-    host: 192.168.0.222
-    port: 6370
-    timeout: 18000
-    password: taxi0
+    host: 127.0.0.1
+    port: 6379
   data:
     mongodb:
-      host: 192.168.0.222
-      port: 27334
-      database: common
-      authentication-database: common
-      username: common
-      password: (Common0)
+      host: 127.0.0.1
+      port: 27017
+      database: admin
 buffer:
   allow-duplicate: false
   capacity: 1000
