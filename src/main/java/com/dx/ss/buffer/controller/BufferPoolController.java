@@ -16,7 +16,7 @@ public class BufferPoolController {
     private BufferPool bufferPool;
 
     @PostMapping(value = "/submit")
-    public void submit(@RequestBody Object o) {
-        bufferPool.submit(o);
+    public void submit(@RequestBody BufferData data) {
+        bufferPool.submit(data);
     }
 }
