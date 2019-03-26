@@ -30,8 +30,8 @@ nbdist/
 .mvn
 mvnw*
 target/
-application.yml
-application.properties
+application-*.yml
+application-*.properties
 
 ## log ##
 logs/**
