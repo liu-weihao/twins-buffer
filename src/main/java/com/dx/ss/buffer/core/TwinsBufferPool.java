@@ -147,17 +147,15 @@ public class TwinsBufferPool<E> implements BufferPoolWithStorage<E> {
      */
     @Override
     public int recovery() {
-
         //缓冲池状态=正在恢复数据
         this.state.set(ST_RECOVERING);
         List<E> dataList = temporaryStorage.getAll();
-        int c = dataList.size();
         if (!dataList.isEmpty()) {
             persistStorage.store(dataList);
             temporaryStorage.clear();
+            log.info("{} data has recovered.", dataList.size());
         }
-        log.info("{} data has recovered.", c);
-        return c;
+        return dataList.size();
     }
 
     /**
@@ -165,7 +163,6 @@ public class TwinsBufferPool<E> implements BufferPoolWithStorage<E> {
      */
     @Override
     public void start() {
-        log.info("缓冲池启动，检测是否有数据需要恢复。");
         recovery();
         if (bufferTimeInSeconds > 0) {
             //一秒钟检测一次，达到上限就flush
