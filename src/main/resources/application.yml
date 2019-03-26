@@ -1,0 +1,32 @@
+server:
+  port: 8100
+spring:
+  application:
+    name: TwinsBufferPool
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+  redis:
+    host: 192.168.0.222
+    port: 6370
+    timeout: 18000
+    password: taxi0
+  data:
+    mongodb:
+      host: 192.168.0.222
+      port: 27334
+      database: common
+      authentication-database: common
+      username: common
+      password: (Common0)
+buffer:
+  allow-duplicate: false
+  capacity: 1000
+  threshold: 0.8
+  pool:
+    enable-temporary-storage: true
+    buffer-time-in-seconds: 60
+---
+spring:
+  profiles:
+    active: dev
