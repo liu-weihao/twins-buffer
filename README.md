@@ -5,6 +5,7 @@
 我们先从配置说起。
 
 每个参数都会提供默认值，所以不做任何配置也是允许的。如下是目前TwinsBufferPool能提供的配置参数（yml）：
+
 ```yaml
 buffer:
   capacity: 2000
@@ -27,6 +28,7 @@ buffer:
 总而言之，数据都是通过flush动作最终持久化到磁盘上。
 
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/20190328103002725.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_d3hfcHViOiBqaXNodWh1aV8yMDE1,size_15,color_FFFFFF,t_70)
+
 因为大多数实际业务场景对于缓冲池的并发量是有一定要求的，所以默认就采用了线程安全的实现策略，受到JDK中ThreadPool的启发，缓冲池也具备了自身状态管理的机制。如下列出了缓冲池所有可能存在的状态，以及各个状态的流转。
 
 ```java
