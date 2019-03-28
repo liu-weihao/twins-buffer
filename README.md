@@ -73,4 +73,6 @@ private static final int ST_RECOVERING = 5;
 
 值得注意的是，BufferPool接口定义是灵活可扩展的，TwinsBufferPool只是提供了一种基于环形队列的实现方式，用户也可以自行设计，使用另外一种数据结构来支撑缓冲池的运作。
 
-更多精彩内容，请移步：[细说双Buffer缓冲池](https://zhuanlan.zhihu.com/p/60226758)
+迫不及待想试一下？为你准备了[twins-buffer-demo](https://github.com/liu-weihao/twins-buffer-demo)
+
+了解更多精彩内容，请移步：[细说双Buffer缓冲池](https://zhuanlan.zhihu.com/p/60226758)
