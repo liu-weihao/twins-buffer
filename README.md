@@ -17,6 +17,7 @@ buffer:
 下面附上参数说明表：
 
 ![TwinsBufferPool参数表](https://img-blog.csdnimg.cn/20190328104559501.jpg)
+
 以上参数比较浅显易懂，这里重点解释enable-temporary-storage和buffer-time-in-seconds这两个参数。
 
 根据参数说明，很明显可以感受到，这两个参数是为了预防突发情况，导致数据丢失。因为缓冲区都是基于内存的设计的，这就意味着缓冲的数据随时处于一种服务重启，或者服务宕机的高风险环境中，因此，才会有这两个参数的诞生。
