@@ -57,8 +57,10 @@ private static final int ST_SHUTDOWN = 4;
  */
 private static final int ST_RECOVERING = 5;
 ```
+![TwinsBufferPool状态机](https://img-blog.csdnimg.cn/20190328115336664.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_d3hfcHViOiBqaXNodWh1aV8yMDE1,size_30,color_CDCDCD,t_70)
 
 通过上述的一番分析，设计的方案也呼之欲出了，下面给出主要的接口设计与实现。
+
 ![BufferPool接口定义](https://img-blog.csdnimg.cn/20190328103123456.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_d3hfcHViOiBqaXNodWh1aV8yMDE1,size_30,color_CDCDCD,t_70)
 
 通过以上的讲解，也不难理解BufferPool定义的接口。缓冲池的整个生命周期，以及内部的一些运作机制都得以体现。值得注意的是，在设计上，将缓冲池和存储层做了逻辑分离，使得扩展性进一步得到增强。
